@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VALORANT 定点DB</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: #e5e7eb;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* フィルター */
+.filters {
+  background: rgba(30,41,59,0.8);
+  backdrop-filter: blur(10px);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.filters h3 {
+  margin: 10px 0 5px;
+}
+
+select {
+  padding: 5px;
+  border-radius: 6px;
+  border: none;
+}
+
+label {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+/* グリッド */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 15px;
+}
+
+/* カード */
+.card {
+  background: rgba(30,41,59,0.9);
+  border-radius: 12px;
+  padding: 10px;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+iframe {
+  width: 100%;
+  height: 180px;
+  border-radius: 8px;
+}
+
+.title {
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+.tag {
+  font-size: 12px;
+  opacity: 0.7;
+}
+</style>
+</head>
+
+<body>
+
+<h1>VALORANT 定点DB</h1>
+
+<div class="filters">
+  <label>マップ：</label>
+  <select id="map">
+    <option value="">すべて</option>
+    <option value="Ascent">Ascent</option>
+    <option value="Bind">Bind</option>
+  </select>
+
+  <h3>エージェント</h3>
+  <label><input type="checkbox" value="Sova" class="agent"> Sova</label>
+  <label><input type="checkbox" value="Viper" class="agent"> Viper</label>
+
+  <h3>タグ</h3>
+  <label><input type="checkbox" value="定点" class="tagFilter"> 定点</label>
+  <label><input type="checkbox" value="ワンウェイ" class="tagFilter"> ワンウェイ</label>
+  <label><input type="checkbox" value="ショート" class="tagFilter"> ショート</label>
+</div>
+
+<div id="results" class="grid"></div>
+
+<script>
+// 🎬 データ（ここに追加していく）
+const videos = [
+  {
+    title: "Ascent A 定点",
+    map: "Ascent",
+    agent: ["Sova"],
+    tags: ["定点", "ショート"],
+    url: "https://www.youtube.com/embed/ysz5S6PUM-U"
+  },
+  {
+    title: "Bind B ワンウェイ",
+    map: "Bind",
+    agent: ["Viper"],
+    tags: ["ワンウェイ"],
+    url: "https://www.youtube.com/embed/jNQXAC9IVRw"
+  }
+];
+
+// 🔍 フィルター処理
+function filterVideos() {
+  const map = document.getElementById("map").value;
+
+  const agents = [...document.querySelectorAll(".agent:checked")]
+    .map(el => el.value);
+
+  const tags = [...document.querySelectorAll(".tagFilter:checked")]
+    .map(el => el.value);
+
+  const filtered = videos.filter(video => {
+    return (
+      (!map || video.map === map) &&
+      (agents.length === 0 || agents.some(a => video.agent.includes(a))) &&
+      (tags.length === 0 || tags.some(t => video.tags.includes(t)))
+    );
+  });
+
+  renderVideos(filtered);
+}
+
+// 🎨 描画
+function renderVideos(list) {
+  const container = document.getElementById("results");
+  container.innerHTML = "";
+
+  if (list.length === 0) {
+    container.innerHTML = "<p>該当なし</p>";
+    return;
+  }
+
+  list.forEach(video => {
+    const el = document.createElement("div");
+    el.className = "card";
+
+    el.innerHTML = `
+      <iframe src="${video.url}" allowfullscreen></iframe>
+      <div class="title">${video.title}</div>
+      <div class="tag">${video.map} / ${video.agent.join(", ")} / ${video.tags.join(", ")}</div>
+    `;
+
+    container.appendChild(el);
+  });
+}
+
+// 🎯 イベント登録
+document.getElementById("map").addEventListener("change", filterVideos);
+document.querySelectorAll(".agent, .tagFilter")
+  .forEach(el => el.addEventListener("change", filterVideos));
+
+// 初期表示
+renderVideos(videos);
+</script>
+
+</body>
+</html>
