@@ -29,18 +29,36 @@ h1 {
 }
 
 .filters h3 {
-  margin: 10px 0 5px;
+  margin: 15px 0 5px;
 }
 
+/* ロールUI */
+.agent-group {
+  margin-bottom: 10px;
+  padding: 10px;
+  background: rgba(15,23,42,0.6);
+  border-radius: 8px;
+}
+
+.role {
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #38bdf8;
+}
+
+.agent-group label {
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+/* セレクト */
 select {
   padding: 5px;
   border-radius: 6px;
   border: none;
-}
-
-label {
-  margin-right: 10px;
-  cursor: pointer;
 }
 
 /* グリッド */
@@ -93,8 +111,26 @@ iframe {
   </select>
 
   <h3>エージェント</h3>
-  <label><input type="checkbox" value="Sova" class="agent"> Sova</label>
-  <label><input type="checkbox" value="Viper" class="agent"> Viper</label>
+
+  <div class="agent-group">
+    <div class="role">イニシエーター</div>
+    <label><input type="checkbox" value="Sova" class="agent"> Sova</label>
+  </div>
+
+  <div class="agent-group">
+    <div class="role">コントローラー</div>
+    <label><input type="checkbox" value="Viper" class="agent"> Viper</label>
+  </div>
+
+  <div class="agent-group">
+    <div class="role">デュエリスト</div>
+    <label><input type="checkbox" value="Jett" class="agent"> Jett</label>
+  </div>
+
+  <div class="agent-group">
+    <div class="role">センチネル</div>
+    <label><input type="checkbox" value="Killjoy" class="agent"> Killjoy</label>
+  </div>
 
   <h3>タグ</h3>
   <label><input type="checkbox" value="定点" class="tagFilter"> 定点</label>
@@ -105,7 +141,6 @@ iframe {
 <div id="results" class="grid"></div>
 
 <script>
-// 🎬 データ（ここに追加していく）
 const videos = [
   {
     title: "Ascent A 定点",
@@ -123,7 +158,6 @@ const videos = [
   }
 ];
 
-// 🔍 フィルター処理
 function filterVideos() {
   const map = document.getElementById("map").value;
 
@@ -144,7 +178,6 @@ function filterVideos() {
   renderVideos(filtered);
 }
 
-// 🎨 描画
 function renderVideos(list) {
   const container = document.getElementById("results");
   container.innerHTML = "";
@@ -168,12 +201,10 @@ function renderVideos(list) {
   });
 }
 
-// 🎯 イベント登録
 document.getElementById("map").addEventListener("change", filterVideos);
 document.querySelectorAll(".agent, .tagFilter")
   .forEach(el => el.addEventListener("change", filterVideos));
 
-// 初期表示
 renderVideos(videos);
 </script>
 
