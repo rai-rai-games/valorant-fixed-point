@@ -106,8 +106,19 @@ iframe {
   <label>マップ：</label>
   <select id="map">
     <option value="">すべて</option>
-    <option value="Ascent">Ascent</option>
-    <option value="Bind">Bind</option>
+    <option value="Icebox">アイスボックス</option>
+    <option value="Ascent">アセント</option>
+    <option value="Abyss">アビス</option>
+    <option value="Corrode">カロード</option>
+    <option value="Summit">サミット</option>
+    <option value="Sunset">サンセット</option>
+    <option value="Split">スプリット</option>
+    <option value="Bind">バインド</option>
+    <option value="Pearl">パール</option>
+    <option value="Fracture">フラクチャー</option>
+    <option value="Breeze">ブリーズ</option>
+    <option value="Haven">ヘイヴン</option>
+    <option value="Lotus">ロータス</option>
   </select>
 
   <h3>エージェント</h3>
@@ -159,8 +170,11 @@ iframe {
 
   <h3>タグ</h3>
   <label><input type="checkbox" value="定点" class="tagFilter"> 定点</label>
-  <label><input type="checkbox" value="ワンウェイ" class="tagFilter"> ワンウェイ</label>
   <label><input type="checkbox" value="ショート" class="tagFilter"> ショート</label>
+  <label><input type="checkbox" value="Aサイト" class="tagFilter"> Aサイト</label>
+  <label><input type="checkbox" value="Bサイト" class="tagFilter"> Bサイト</label>
+  <label><input type="checkbox" value="Cサイト" class="tagFilter"> Cサイト</label>
+  <label><input type="checkbox" value="リテイク" class="tagFilter"> リテイク</label>
 </div>
 
 <span>借りた動画のチャンネル：<a href="https://www.youtube.com/@ItsDANYGEN">ItsDANYGEN - Best Lineups & Clips</a></span>
@@ -182,6 +196,13 @@ const videos = [
     agent: ["Viper"],
     tags: ["ワンウェイ"],
     url: "https://www.youtube.com/embed/7QUphFZMjHI"
+  },
+  {
+    title: "Bind B ワンウェイ",
+    map: "Haven",
+    agent: ["Sova"],
+    tags: ["定点", "Cサイト", "リテイク"],
+    url: "https://www.youtube.com/embed/QKYarQ1GyC0"
   }
 ];
 
